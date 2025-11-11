@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home/Home";
-import AllModels from "../Pages/AllModels/AllModels";
+import AllBooks from "../Pages/AllBooks/AllBooks";
 import Profile from "../Pages/Profile/Profile";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Registration";
 import PrivateRoute from "./PrivateRoute";
-import AddModel from "../Pages/AddModel/AddModel";
+import AddModel from "../Pages/AddBook/AddBook";
 import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 import UpdateModel from "../Pages/UpdateModel/UpdateModel";
 import MyModels from "../Pages/MyModels/MyModels";
@@ -20,12 +20,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch('https://3d-model-server.vercel.app/latest-models')
+        loader: () => fetch("https://3d-model-server.vercel.app/latest-models"),
       },
       {
-        path: "/all-models",
-        element: <AllModels />,
-        loader: () => fetch('https://3d-model-server.vercel.app/models')
+        path: "/all-books",
+        element: <AllBooks />,
+        loader: () => fetch("https://3d-model-server.vercel.app/models"),
       },
       {
         path: "/profile",
@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
         ),
       },
 
-       {
+      {
         path: "/my-models",
         element: (
           <PrivateRoute>
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
         ),
       },
 
-       {
+      {
         path: "/my-downloads",
         element: (
           <PrivateRoute>
@@ -70,14 +70,15 @@ export const router = createBrowserRouter([
         ),
       },
 
-        {
+      {
         path: "/update-model/:id",
         element: (
           <PrivateRoute>
             <UpdateModel />
           </PrivateRoute>
         ),
-          loader: ({params}) => fetch(`https://3d-model-server.vercel.app/models/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`https://3d-model-server.vercel.app/models/${params.id}`),
       },
       {
         path: "/auth/login",

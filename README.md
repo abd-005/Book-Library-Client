@@ -17,3 +17,6 @@ npm i react-router
 npm install tailwindcss @tailwindcss/vite
 npm i -D daisyui@latest
 npm install firebase
+npm i react-icons
+npm i react-toastify
+npm i react-hot-toast

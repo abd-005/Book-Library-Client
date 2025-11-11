@@ -1,25 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Quattrocento:wght@400;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Quattrocento:wght@400;700&display=swap");
 
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true; /* set as default */
+  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
+  color-scheme: light; /* color of browser-provided UI */
+
+  --color-base-100: #faf7f0; /* bg-color */
+  --color-base-200: #e8e1d1; /* bd-color */
+  --color-base-300: #b2aea7; /* text-light */
+  --color-base-content: #1f242e; /* text-dark */
+  --color-primary: #00d084; /* vivid-green-cyan */
+  --color-cyan-200: #7bdcb5; /* light-green-cyan */
+  --color-cyan-800: #084935; /* light-green-cyan */
+  --color-cyan-900: #063f2d; /* light-green-cyan */
+  --color-primary-content: #faf7f0; /* bg-color */
+  --color-secondary: #9b51e0; /* vivid-purple */
+  --color-secondary-content: #faf7f0; /* bg-color */
+  --color-accent: #fcb900; /* luminous-vivid-amber */
+  --color-accent-content: #faf7f0; /* bg-color */
+  --color-neutral: #abb8c3; /* cyan-bluish-gray */
+  --color-neutral-content: #1f242e; /* text-dark */
+  --color-info: #0693e3; /* vivid-cyan-blue */
+  --color-info-content: #faf7f0; /* bg-color */
+  --color-success: #00d084; /* vivid-green-cyan */
+  --color-success-content: #faf7f0; /* bg-color */
+  --color-warning: #fcb900; /* luminous-vivid-amber */
+  --color-warning-content: #1f242e; /* text-dark */
+  --color-error: #cf2e2e; /* vivid-red */
+  --color-error-content: #faf7f0; /* bg-color */
+
+  /* border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
 }
 
+.btn-primary {
+  background-color: #084935;
+  border: 0px;
+  color: #faf7f0;
+  padding: 20px 25px;
+  border-radius: 3rem;
+}
+.btn-primary:hover {
+  background-color: #063f2d;
+}
+.btn-secondary {
+  background-color: #9b51e0;
+  border: 0px;
+  color: #faf7f0;
+  padding: 20px 25px;
+  border-radius: 3rem;
+}
+.btn-secondary:hover {
+  background-color: #7b3bb8;
+  border: 0px;
+  color: #faf7f0;
+}
 
 .font-primary {
-    font-family: "Cormorant Garamond", serif;
+  font-family: "Cormorant Garamond", serif;
 }
 .font-secondary-sans {
-    font-family: "Quattrocento Sans", sans-serif;;
+  font-family: "Quattrocento Sans", sans-serif;
 }
 .font-secondary {
-    font-family: "Quattrocento", serif;
+  font-family: "Quattrocento", serif;
 }
-
-
-
-
 
 .glass-card {
   background: rgba(255, 255, 255, 0.14);
@@ -27,13 +89,9 @@
   -webkit-backdrop-filter: blur(6px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  /* overflow: hidden; */
 }
 
 .navbar .active {
-  color: crimson;
-  font-weight: bold;
-  border: 1px solid #CAC8C8FF;
-  border-radius: 20px;
-  background: rgb(243, 226, 226);
+  border-bottom: 2px solid #7bdcb5;
+  color: #7bdcb5;
 }
