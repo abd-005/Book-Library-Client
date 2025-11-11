@@ -1,113 +1,234 @@
-import React, { use } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "../../Firebase/firebase.config";
 import { AuthContext } from "../../context/AuthContext";
-import { FaGoogle } from "react-icons/fa6";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
+import MyContainer from "../../components/MyContainer";
+// import MyContainer from "../";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
-const Register = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } = use(AuthContext);
+const Registration = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleRegister = (event) => {
-    event.preventDefault();
-    const displayName = event.target.displayName.value;
-    const photoURL = event.target.photoURL.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+  useEffect(() => {
+    document.title = "Register - ToyTopia";
+  }, []);
 
-    toast.loading("Creating user...", { id: "create-user" });
+  const handleEmailRegister = async (e) => {
+    e.preventDefault();
 
-    createUser(email, password)
-      .then((result) => {
-        console.log(result.user);
-        updateUserProfile(displayName, photoURL);
-        toast.success("User created successfully!", { id: "create-user" });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.message, { id: "create-user" });
+    const PASSWORD_VALID_REGEX = new RegExp(
+      "^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:',.<>/?|~`\"\\\\]+$"
+    );
+
+    if (!PASSWORD_VALID_REGEX.test(password)) {
+      toast.error(
+        "Password contains invalid characters. Only alphanumeric and specific special characters are allowed."
+      );
+      return;
+    }
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumeric = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};:',.<>/?|~`"\\]/.test(
+      password
+    );
+    const hasMinLength = password.length >= 6;
+
+    if (!hasUpperCase) {
+      toast.error("Password must have at least one uppercase letter");
+      return;
+    }
+    if (!hasLowerCase) {
+      toast.error("Password must have at least one lowercase letter");
+      return;
+    }
+    if (!hasNumeric) {
+      toast.error("Password must have at least one numeric character");
+      return;
+    }
+    if (!hasSpecialChar) {
+      toast.error("Password must have at least one special character");
+      return;
+    }
+    if (!hasMinLength) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(result.user, {
+        displayName: name,
+        photoURL: photoURL,
       });
+      login(result.user);
+      toast.success("Registration successful!");
+      navigate("/");
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("User already exists in the database.");
+      } else if (error.code === "auth/weak-password") {
+        toast.error("Password is too weak.");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email format. Please check your email.");
+      } else if (error.code === "auth/network-request-failed") {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error(error.message || "An unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    toast.loading("Creating user...", { id: "create-user" });
-    signInWithGoogle()
-      .then((result) => {
-        toast.success("User created successfully!", { id: "create-user" });
-        console.log(result.user);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.message, { id: "create-user" });
-      });
+  const handleGoogleRegister = async () => {
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      login(result.user);
+      toast.success("Google registration successful!");
+      navigate("/");
+    } catch (error) {
+      setError(error.message);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-[url(https://i.pinimg.com/736x/99/42/6d/99426d2cbb96a059dad3fc8e773fd77b.jpg)] bg-cover bg-center min-h-screen flex items-center justify-center shadow-2xl py-10">
-        <div className="card glass w-full mx-auto max-w-sm shrink-0 shadow-2xl">
-      <div className="card-body">
-        <h1 className="text-3xl font-bold text-center ">Register</h1>
-        <form onSubmit={handleRegister}>
-          <fieldset className="fieldset">
-            {/* email field */}
-            <label className="label bg-transparent">Name</label>
-            <input
-              type="text"
-              name="displayName"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Name"
-            />
+    <div className="gradient-animated min-h-screen py-[10vh]">
+      <MyContainer>
+        <div className="max-w-md mx-auto bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 border border-white/20">
+          <h2 className="text-3xl font-bold text-center text-slate-700 mb-8">
+            Register for The Book Heaven
+          </h2>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
-            <label className="label bg-transparent">PhotoURL</label>
-            <input
-              type="text"
-              name="photoURL"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Photo URL"
-            />
-            {/* email field */}
-            <label className="label bg-transparent">Email</label>
-            <input
-              type="email"
-              name="email"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Email"
-            />
-            {/* password field */}
-            <label className="label bg-transparent">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Password"
-            />
+          <form onSubmit={handleEmailRegister} className="space-y-6">
             <div>
-              <a className="link link-hover">Forgot password?</a>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your full name"
+                required
+              />
             </div>
-            <button className="btn text-white btn-primary">
-              Register
-            </button>
-          </fieldset>
-        </form>
 
-        <button
-          onClick={handleGoogleSignIn}
-          className="btn bg-white rounded-full text-black border-[#e5e5e5]"
-        >
-          <FaGoogle />
-          Login with Google
-        </button>
-        <p className="text-center">
-          Already have an account? Please{" "}
-          <Link className="text-cyan-200 hover:text-cyan-800" to="/auth/login">
-            Login
-          </Link>{" "}
-        </p>
-      </div>
-    </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Photo URL
+              </label>
+              <input
+                type="url"
+                value={photoURL}
+                onChange={(e) => setPhotoURL(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your photo URL"
+                required
+              />
+            </div>
+
+            <div className="relative">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Password
+              </label>
+              <input
+                type={show ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your password"
+                required
+              />
+              <span
+                onClick={() => setShow(!show)}
+                className="absolute right-[8px] top-[40px] cursor-pointer z-50"
+              >
+                {show ? <FaEye /> : <IoEyeOff />}
+              </span>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full btn-primary disabled:opacity-50"
+            >
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </form>
+
+          <div className="mt-6">
+            <button
+              onClick={handleGoogleRegister}
+              disabled={loading}
+              className="w-full btn-secondary disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="w-6 h-6"
+              />
+              {loading ? "Registering..." : "Register with Google"}
+            </button>
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-slate-600">
+              Already have an account?{" "}
+              <Link
+                to="/auth/login"
+                className="text-cyan-200 hover:text-cyan-800 font-semibold"
+              >
+                Login here
+              </Link>
+            </p>
+          </div>
+        </div>
+      </MyContainer>
     </div>
   );
 };
 
-export default Register;
+export default Registration;

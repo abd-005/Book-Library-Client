@@ -5,11 +5,12 @@ import AllBooks from "../Pages/AllBooks/AllBooks";
 import Profile from "../Pages/Profile/Profile";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Registration";
+import ForgotPassword from "../Pages/Auth/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
-import AddModel from "../Pages/AddBook/AddBook";
-import ModelDetails from "../Pages/ModelDetails/ModelDetails";
-import UpdateModel from "../Pages/UpdateModel/UpdateModel";
-import MyModels from "../Pages/MyModels/MyModels";
+import AddBook from "../Pages/AddBook/AddBook";
+import BookDetails from "../Pages/BookDetails/BookDetails";
+import UpdateBook from "../Pages/UpdateBook/UpdateBook";
+import MyBooks from "../Pages/MyBooks/MyBooks";
 import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 
 export const router = createBrowserRouter([
@@ -20,12 +21,12 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("https://3d-model-server.vercel.app/latest-models"),
+        loader: () => fetch("http://localhost:3000/"),
       },
       {
         path: "/all-books",
         element: <AllBooks />,
-        loader: () => fetch("https://3d-model-server.vercel.app/models"),
+        loader: () => fetch("http://localhost:3000/all-books"),
       },
       {
         path: "/profile",
@@ -36,27 +37,27 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/add-model",
+        path: "/add-book",
         element: (
           <PrivateRoute>
-            <AddModel />
+            <AddBook />
           </PrivateRoute>
         ),
       },
       {
-        path: "/model-details/:id",
+        path: "/book-details/:id",
         element: (
           <PrivateRoute>
-            <ModelDetails />
+            <BookDetails />
           </PrivateRoute>
         ),
       },
 
       {
-        path: "/my-models",
+        path: "/my-books",
         element: (
           <PrivateRoute>
-            <MyModels />
+            <MyBooks />
           </PrivateRoute>
         ),
       },
@@ -71,14 +72,14 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/update-model/:id",
+        path: "/update-book/:id",
         element: (
           <PrivateRoute>
-            <UpdateModel />
+            <UpdateBook />
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://3d-model-server.vercel.app/models/${params.id}`),
+          fetch(`http://localhost:3000/books/${params.id}`),
       },
       {
         path: "/auth/login",
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Register />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
       },
     ],
   },

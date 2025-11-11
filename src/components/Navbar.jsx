@@ -35,9 +35,9 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar min-h-0 z-1 shadow-sm  bg-black opacity-90 glass mx-auto">
+    <div className="fade-load navbar min-h-0 z-1 shadow-sm  bg-black opacity-100 glass mx-auto">
       <MyContainer>
-        <div className="navbar py-7 px-5 min-h-0 z-1 mx-auto">
+        <div className="navbar py-7 px-5 min-h-0 z-1">
               <div className="navbar-start">
         <div className="dropdown ">
           <div tabIndex={0} role="button" className=" md:hidden">
@@ -65,7 +65,7 @@ const NavBar = () => {
 
           </ul>
         </div>
-        <Link to={"/"} className="flex items-center gap-1 text-4xl text-base-100 font-secondary">
+        <Link to={"/"} className="flex items-center gap-1 text-2xl pl-2 md:text-4xl text-base-100 font-secondary">
           The Book <span className="text-cyan-200"> Heaven</span>
         </Link>
       </div>
@@ -74,7 +74,7 @@ const NavBar = () => {
           {links}
         </ul>
       </div>
-      <div className="navbar-end gap-3">
+      <div className="navbar-end gap-1 md:gap-3">
         {user ? (
           <div className="dropdown dropdown-end z-50">
             <div tabIndex={0} role="button" className="">
@@ -130,12 +130,20 @@ const NavBar = () => {
             </ul>
           </div>
         ) : (
+          <>
           <Link
             to={"/auth/login"}
             className="btn btn-primary"
           >
             Login
           </Link>
+          <Link
+            to={"/auth/register"}
+            className="btn btn-secondary"
+          >
+            Register
+          </Link>
+          </>
         )}
       </div>
     </div>

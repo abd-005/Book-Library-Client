@@ -24,7 +24,7 @@ const Banner = () => {
 
   return (
     <>
-      <div className="absolute w-full flex top-0 left-0 justify-center max-h-screen">
+      <div className="fade-load absolute w-full flex top-0 left-0 justify-center max-h-screen">
         <div className="mx-auto">
           <div className="relative w-full overflow-hidden bg-black rounded-2xl shadow-2xl max-h-screen">
             <div
@@ -40,15 +40,19 @@ const Banner = () => {
                   <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
                   <div className="absolute inset-0 md:grid flex flex-col gap-3 md:grid-rows-4 md:grid-cols-4 items-center justify-center md:gap-18 pt-18 w-9/12 mx-auto">
                   
-                      <div className="col-span-2 md:mt-76">
-                      <p className="font-secondary text-base-100 text-5xl md:text-6xl">Take a tour to the Heaven!!</p>
-                    <Link to={"/all-book"} className="btn btn-secondary">
+                      <div className="col-span-2 md:mt-[55vh]">
+                      <div className="typing-container">
+                        <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl">Take a tour to the Heaven!!</p>
+                      </div>
+                    <Link to={"/all-book"} className="btn btn-secondary fade-load">
                       All Book
                     </Link>
                     </div>
-                    <div className="flex flex-col items-end justify-end col-span-2 md:mt-[450px]">
-                      <p className="font-secondary text-base-100 text-5xl md:text-6xl text-end ">Contribute to the Heaven!!</p>
-                    <Link to={"/add-book"} className="btn btn-primary">
+                    <div className="flex flex-col items-end justify-end col-span-2 md:mt-[75vh]">
+                      <div className="typing-container">  
+                      <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl text-end ">Contribute to the Heaven!!</p>
+                      </div>
+                    <Link to={"/add-book"} className="btn btn-primary fade-load">
                       Create Book
                     </Link>
                     </div>

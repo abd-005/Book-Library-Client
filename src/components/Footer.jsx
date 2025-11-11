@@ -5,6 +5,7 @@ import {
 import { FaFacebookF } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { BsInstagram } from 'react-icons/bs';
+import MyContainer from './MyContainer';
 
 
 const Footer = () => {
@@ -12,8 +13,9 @@ const Footer = () => {
 
 
   return (
-    <footer className="bg-linear-to-r/oklch from-[#00d084] to-[#9b51e0] py-8 px-4">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <footer className="bg-linear-to-r/oklch from-[#00d084] to-[#9b51e0] py-8 px-4 ">
+        <MyContainer>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <div className="flex items-center space-x-2 text-white">
       <span className="text-xl font-bold text-gray-800 dark:text-gray-200">The Book Heaven</span>
@@ -71,6 +73,8 @@ const Footer = () => {
           </span>
         </p>
       </div>
+        </MyContainer>
+      
     </footer>
   );
 };

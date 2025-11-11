@@ -1,92 +1,210 @@
-import { use } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth } from "../../Firebase/firebase.config";
 import { AuthContext } from "../../context/AuthContext";
-import { FaGoogle } from "react-icons/fa";
+import { toast } from "react-toastify";
+import MyContainer from "../../components/MyContainer";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle } = use(AuthContext);
-
-  const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(location);
+  const location = useLocation();
 
-  const handleLogIn = (event) => {
-    event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+  useEffect(() => {
+    document.title = "Login - Book Heaven";
+  }, []);
 
-    console.log(email, password);
-    signInUser(email, password)
-      .then((result) => {
-        console.log(result.user);
-        event.target.reset();
-        navigate(location.state || "/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+
+    const PASSWORD_VALID_REGEX = new RegExp(
+      "^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:',.<>/?|~`\"\\\\]+$"
+    );
+
+    if (!PASSWORD_VALID_REGEX.test(password)) {
+      toast.error(
+        "Password contains invalid characters. Only alphanumeric and specific special characters are allowed."
+      );
+      return;
+    }
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumeric = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};:',.<>/?|~`"\\]/.test(
+      password
+    );
+    const hasMinLength = password.length >= 6;
+
+    if (!hasUpperCase) {
+      toast.error("Password must have at least one uppercase letter");
+      return;
+    }
+    if (!hasLowerCase) {
+      toast.error("Password must have at least one lowercase letter");
+      return;
+    }
+    if (!hasNumeric) {
+      toast.error("Password must have at least one numeric character");
+      return;
+    }
+    if (!hasSpecialChar) {
+      toast.error("Password must have at least one special character");
+      return;
+    }
+    if (!hasMinLength) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      login(result.user);
+      toast.success("Login successful!");
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        toast.error("User not found. Please sign up first.");
+      } else if (error.code === "auth/wrong-password") {
+        toast.error("Wrong password. Please try again.");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email format. Please check your email.");
+      } else if (error.code === "auth/user-disabled") {
+        toast.error("This user account has been disabled.");
+      } else if (error.code === "auth/too-many-requests") {
+        toast.error("Too many attempts. Please try again later.");
+      } else if (error.code === "auth/network-request-failed") {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error(error.message || "An unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      login(result.user);
+      toast.success("Google login successful!");
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    } catch (error) {
+      setError(error.message);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-[url(https://i.pinimg.com/736x/99/42/6d/99426d2cbb96a059dad3fc8e773fd77b.jpg)] bg-cover bg-center min-h-screen flex items-center justify-center shadow-2xl py-10">
-      <div className="w-[360px] h-[350px] glass mx-auto max-w-sm shadow-2xl border border-gray-200 rounded-xl">
-        <div className="card-body">
-          <h1 className="text-3xl font-bold text-center">Login</h1>
-          <form onSubmit={handleLogIn}>
-            <fieldset className="fieldset">
-              <label className="label">Email</label>
+    <div className="gradient-animated min-h-screen py-[10vh]">
+      <MyContainer>
+        <div className="max-w-md mx-auto bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 border border-white/20">
+          <h2 className="text-3xl font-bold text-center text-slate-700 mb-8">
+            Login to The Book Heaven
+          </h2>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+          <form onSubmit={handleEmailLogin} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Email
+              </label>
               <input
                 type="email"
-                name="email"
-                className="input rounded-full focus:border-0 focus:outline-gray-200 bg-transparent"
-                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your email"
+                required
               />
+            </div>
 
-              <label className="label">Password</label>
+            <div className="relative">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Password
+              </label>
               <input
-                type="password"
-                name="password"
-                className="input rounded-full focus:border-0 focus:outline-gray-200 bg-transparent"
-                placeholder="Password"
+                type={show ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                placeholder="Enter your password"
+                required
               />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
-              <button className="btn btn-primary">
-                Login
-              </button>
-            </fieldset>
+              <span
+                onClick={() => setShow(!show)}
+                className="absolute right-[8px] top-[40px] cursor-pointer z-50"
+              >
+                {show ? <FaEye /> : <IoEyeOff />}
+              </span>
+            </div>
+            <div className="text-right">
+              <Link
+                to="/forgot-password"
+                state={{ email }}
+                className="text-cyan-200 hover:text-cyan-800 font-semibold"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full btn-primary disabled:opacity-50"
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
           </form>
 
-          <button
-            onClick={handleGoogleSignIn}
-            className="btn bg-white rounded-full text-black border-[#e5e5e5]"
-          >
-            <FaGoogle />
-            Login with Google
-          </button>
-          <p className="text-center">
-            New to our website? Please{" "}
-            <Link
-              className="text-blue-500 hover:text-blue-800"
-              to="/auth/register"
+          <div className="mt-6">
+            <button
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              className="btn-secondary w-full disabled:opacity-50  flex items-center justify-center"
             >
-              Register
-            </Link>
-          </p>
+              <div>
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  alt="Google"
+                  className="w-6"
+                />
+              </div>
+              {loading ? "Logging in..." : "Login with Google"}
+            </button>
+          </div>
+
+          <div className="mt-6 text-center">
+            <p className="text-slate-600">
+              Don't have an account?{" "}
+              <Link
+                to="/auth/register"
+                className="text-cyan-200 hover:text-cyan-800 font-semibold"
+              >
+                Register here
+              </Link>
+            </p>
+          </div>
         </div>
-      </div>
+      </MyContainer>
     </div>
   );
 };
