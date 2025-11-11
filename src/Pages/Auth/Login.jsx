@@ -131,7 +131,7 @@ const Login = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-md focus:outline-none focus:ring-2 focus:ring-border-secondary bg-yellow-50 placeholder:text-slate-400"
                 placeholder="Enter your email"
                 required
               />
@@ -145,7 +145,7 @@ const Login = () => {
                 type={show ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-md focus:outline-none focus:ring-2 focus:ring-border-secondary bg-yellow-50 placeholder:text-slate-400"
                 placeholder="Enter your password"
                 required
               />
@@ -160,7 +160,7 @@ const Login = () => {
               <Link
                 to="/forgot-password"
                 state={{ email }}
-                className="text-cyan-200 hover:text-cyan-800 font-semibold"
+                className="text-cyan-200 hover:text-primary font-semibold"
               >
                 Forgot Password?
               </Link>
@@ -197,7 +197,7 @@ const Login = () => {
               Don't have an account?{" "}
               <Link
                 to="/auth/register"
-                className="text-cyan-200 hover:text-cyan-800 font-semibold"
+                className="text-cyan-200 hover:text-primary font-semibold"
               >
                 Register here
               </Link>

@@ -23,76 +23,81 @@ const Banner = () => {
   const nextSlide = () => setCurrent((current + 1) % 3);
 
   return (
-    <>
-      <div className="fade-load absolute w-full flex top-0 left-0 justify-center max-h-screen">
-        <div className="mx-auto">
-          <div className="relative w-full overflow-hidden bg-black rounded-2xl shadow-2xl max-h-screen">
-            <div
-              className="flex transition-transform duration-700 ease-in-out"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {images.map((src, i) => (
-                <div key={i} className="w-full shrink-0 relative">
-                  <img
-                    src={src}
-                    className="w-full h-[80vh] object-cover brightness-80"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
-                  <div className="absolute inset-0 md:grid flex flex-col gap-3 md:grid-rows-4 md:grid-cols-4 items-center justify-center md:gap-18 pt-18 w-9/12 mx-auto">
-                  
-                      <div className="col-span-2 md:mt-[55vh]">
-                      <div className="typing-container">
-                        <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl">Take a tour to the Heaven!!</p>
-                      </div>
-                    <Link to={"/all-book"} className="btn btn-secondary fade-load">
+    <div className="w-full">
+      <div className="mx-auto">
+        <div className="relative w-full overflow-hidden bg-black rounded-2xl shadow-2xl">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${current * 100}%)` }}
+          >
+            {images.map((src, i) => (
+              <div key={i} className="w-full shrink-0 relative h-[500px]">
+                <img
+                  src={src}
+                  className="w-full h-full object-cover brightness-80"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 md:grid flex flex-col gap-3 md:grid-rows-4 md:grid-cols-4 items-center justify-center md:gap-18 pt-18 w-9/12 mx-auto">
+                  <div className="col-span-2 md:mt-[55vh]">
+                    <div className="typing-container">
+                      <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl">
+                        Take a tour to the Heaven!!
+                      </p>
+                    </div>
+                    <Link
+                      to={"/all-book"}
+                      className="btn btn-secondary fade-load"
+                    >
                       All Book
                     </Link>
+                  </div>
+                  <div className="flex flex-col items-end justify-end col-span-2 md:mt-[75vh]">
+                    <div className="typing-container">
+                      <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl text-end ">
+                        Contribute to the Heaven!!
+                      </p>
                     </div>
-                    <div className="flex flex-col items-end justify-end col-span-2 md:mt-[75vh]">
-                      <div className="typing-container">  
-                      <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl text-end ">Contribute to the Heaven!!</p>
-                      </div>
-                    <Link to={"/add-book"} className="btn btn-primary fade-load">
+                    <Link
+                      to={"/add-book"}
+                      className="btn btn-primary fade-load"
+                    >
                       Create Book
                     </Link>
-                    </div>
-                  
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
 
-            {/* Navigation Buttons */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
-            {/* Dots indicator */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`h-2 w-2 rounded-full transition-all ${
-                    current === i ? "bg-white w-4" : "bg-white/50"
-                  }`}
-                />
-              ))}
-            </div>
+          {/* Dots indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`h-2 w-2 rounded-full transition-all ${
+                  current === i ? "bg-white w-4" : "bg-white/50"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
-      <div className="mb-[500px]"></div>
-    </>
+    </div>
   );
 };
 

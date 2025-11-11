@@ -82,6 +82,7 @@ const Registration = () => {
         displayName: name,
         photoURL: photoURL,
       });
+
       login(result.user);
       toast.success("Registration successful!");
       navigate("/");
@@ -107,6 +108,7 @@ const Registration = () => {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
+
       login(result.user);
       toast.success("Google registration successful!");
       navigate("/");

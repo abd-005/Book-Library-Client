@@ -20,3 +20,5 @@ npm install firebase
 npm i react-icons
 npm i react-toastify
 npm i react-hot-toast
+npm install axios
+npm install react-fast-marquee
