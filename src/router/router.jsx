@@ -12,11 +12,15 @@ import BookDetails from "../Pages/BookDetails/BookDetails";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
 import MyBooks from "../Pages/MyBooks/MyBooks";
 import MyDownloads from "../Pages/MyDownloads/MyDownloads";
+import NotFound from "../Pages/Error/NotFound";
+import Loading from "../components/Loading";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <NotFound />,
+    hydrateFallbackElement: <Loading />,
     children: [
       {
         path: "/",

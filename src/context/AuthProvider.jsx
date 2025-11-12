@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
+import { toast } from 'react-toastify';
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -9,6 +10,9 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const login = (user) => setUser(user);
+    const logout = () => auth.signOut();
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -31,13 +35,13 @@ const AuthProvider = ({ children }) => {
 
     const signOutUser = () =>{
         setLoading(true);
+        toast.success("Logout successful!")
         return signOut(auth);
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            // console.log(currentUser)
             setLoading(false);
         })
 
@@ -53,7 +57,9 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         signOutUser,
         user,
-        loading
+        loading,
+        login,
+        logout,
     }
     return (
         <AuthContext value={authInfo}>

@@ -121,7 +121,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="gradient-animated min-h-screen py-[10vh]">
+    <div className="gradient-animated min-h-screen pt-42 pb-12">
       <MyContainer>
         <div className="max-w-md mx-auto bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 border border-white/20">
           <h2 className="text-3xl font-bold text-center text-slate-700 mb-8">
@@ -138,7 +138,7 @@ const Registration = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your full name"
                 required
               />
@@ -152,7 +152,7 @@ const Registration = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your email"
                 required
               />
@@ -166,7 +166,7 @@ const Registration = () => {
                 type="url"
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your photo URL"
                 required
               />
@@ -180,7 +180,7 @@ const Registration = () => {
                 type={show ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your password"
                 required
               />

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import MyContainer from "./MyContainer";
 import useAuth from "../hooks/useAuth";
 
+
 const NavBar = () => {
   const { user, signOutUser } = useAuth();
 
@@ -34,7 +35,7 @@ const NavBar = () => {
         <NavLink to={"/add-book"}>Add Book</NavLink>
       </li>
       <li>
-        <NavLink to={"/myBooks"}>My Book</NavLink>
+        <NavLink to={"/my-books"}>My Book</NavLink>
       </li>
     </>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const MyModels = () => {
+const MyBooks = () => {
     return (
         <div>
-            MyModels
+            MyBooks
         </div>
     );
 };
 
-export default MyModels;
+export default MyBooks;

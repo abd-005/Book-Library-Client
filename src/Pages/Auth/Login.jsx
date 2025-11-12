@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
 import {
   signInWithEmailAndPassword,
@@ -6,32 +6,31 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config";
-import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import MyContainer from "../../components/MyContainer";
-import { FaEye } from "react-icons/fa";
-import { IoEyeOff } from "react-icons/io5";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
+
+const PASSWORD_VALID_REGEX = new RegExp(
+  "^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:',.<>/?|~`\"\\\\]+$"
+);
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [show, setShow] = useState(false);
-  const { login } = useContext(AuthContext);
+
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    document.title = "Login - Book Heaven";
+    document.title = "Login - The Book Heaven";
   }, []);
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
-
-    const PASSWORD_VALID_REGEX = new RegExp(
-      "^[a-zA-Z0-9!@#$%^&*()_+\\-=\\[\\]{};:',.<>/?|~`\"\\\\]+$"
-    );
 
     if (!PASSWORD_VALID_REGEX.test(password)) {
       toast.error(
@@ -106,7 +105,6 @@ const Login = () => {
       const from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     } catch (error) {
-      setError(error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -114,13 +112,12 @@ const Login = () => {
   };
 
   return (
-    <div className="gradient-animated min-h-screen py-[10vh]">
+    <div className="gradient-animated min-h-screen pt-42 pb-12">
       <MyContainer>
         <div className="max-w-md mx-auto bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 border border-white/20">
           <h2 className="text-3xl font-bold text-center text-slate-700 mb-8">
             Login to The Book Heaven
           </h2>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
           <form onSubmit={handleEmailLogin} className="space-y-6">
             <div>
@@ -131,36 +128,38 @@ const Login = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-md focus:outline-none focus:ring-2 focus:ring-border-secondary bg-yellow-50 placeholder:text-slate-400"
+                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your email"
                 required
               />
             </div>
 
-            <div className="relative">
+            <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
                 Password
               </label>
-              <input
-                type={show ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-md focus:outline-none focus:ring-2 focus:ring-border-secondary bg-yellow-50 placeholder:text-slate-400"
-                placeholder="Enter your password"
-                required
-              />
-              <span
-                onClick={() => setShow(!show)}
-                className="absolute right-[8px] top-[40px] cursor-pointer z-50"
-              >
-                {show ? <FaEye /> : <IoEyeOff />}
-              </span>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                  placeholder="Enter your password"
+                  required
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-[8px] top-[14px] cursor-pointer text-gray-400 hover:text-gray-800 text-xl z-50"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span>
+              </div>
             </div>
             <div className="text-right">
               <Link
                 to="/forgot-password"
                 state={{ email }}
-                className="text-cyan-200 hover:text-primary font-semibold"
+                className="text-cyan-200 hover:text-cyan-800 font-semibold"
               >
                 Forgot Password?
               </Link>
@@ -179,15 +178,13 @@ const Login = () => {
             <button
               onClick={handleGoogleLogin}
               disabled={loading}
-              className="btn-secondary w-full disabled:opacity-50  flex items-center justify-center"
+              className="w-full btn-secondary disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              <div>
-                <img
-                  src="https://www.svgrepo.com/show/475656/google-color.svg"
-                  alt="Google"
-                  className="w-6"
-                />
-              </div>
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                className="w-6 h-6"
+              />
               {loading ? "Logging in..." : "Login with Google"}
             </button>
           </div>
@@ -196,8 +193,8 @@ const Login = () => {
             <p className="text-slate-600">
               Don't have an account?{" "}
               <Link
-                to="/auth/register"
-                className="text-cyan-200 hover:text-primary font-semibold"
+                to="/register"
+                className="text-cyan-200 hover:text-cyan-800 font-semibold"
               >
                 Register here
               </Link>

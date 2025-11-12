@@ -9,7 +9,7 @@ const LatestCard = ({ book }) => {
           <figure className="w-66 h-36 m-3 bg-base-300 mx-auto ">
             <img
               src={image}
-              alt="Shoes"
+              alt={title}
               className=""
             />
           </figure>
