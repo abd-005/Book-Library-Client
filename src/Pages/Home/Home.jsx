@@ -13,6 +13,9 @@ const Home = () => {
         <section className=""><Banner /></section>
       </div>
       <section className=""><LatestBooks LatestBooksPromise={LatestBooksPromise} /></section>
+      <section>
+        
+      </section>
     </div>
   );
 };

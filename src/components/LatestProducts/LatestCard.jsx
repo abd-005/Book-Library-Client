@@ -5,8 +5,8 @@ const LatestCard = ({ book }) => {
   return (
     <div className="mx-3 my-7">
       
-        <div className="card glass max-w-96 shadow-lg h-[30vh]">
-          <figure className="w-66 h-36 p-3">
+        <div className="card glass max-w-96 shadow-lg h-[30vh] text-secondary-sans">
+          <figure className="w-66 h-36 m-3 bg-base-300 mx-auto ">
             <img
               src={image}
               alt="Shoes"
