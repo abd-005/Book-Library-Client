@@ -4,6 +4,7 @@ import MyContainer from "../MyContainer";
 import Marquee from "react-fast-marquee";
 import useAxios from "../../hooks/useAxios";
 import Loading from "../Loading";
+import { toast } from "react-toastify";
 
 const LatestBooks = () => {
   const [books, setBooks] = useState([]);
@@ -28,15 +29,15 @@ const LatestBooks = () => {
 
         // setBooks(response.data);
       } catch (err) {
-        if (axiosInstance.isCancel(err)) {
-          console.log("Request canceled:", err.message);
-        } else if (err.name !== "CanceledError") {
-          setError(err.message || "Something went wrong");
+        if (err.name !== "CanceledError" && !err.signal?.aborted) {
+          const msg = err.response?.data?.message || err.message || "Failed to load book";
+          setError(msg);
+          toast.error(msg);
         }
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchUsers();
     return () => controller.abort();

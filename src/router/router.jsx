@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
       {
         path: "/all-books",
         element: <AllBooks />,
-        // loader: () => axiosInstance("http://localhost:3000/all-books"),
+        // loader: () => axiosInstance.get("/all-books"),
       },
       {
         path: "/profile",
@@ -49,12 +49,13 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/book-details/:id",
+        path: '/details-book/:id',
         element: (
           <PrivateRoute>
             <BookDetails />
           </PrivateRoute>
         ),
+        loader: ({params}) => fetch(`http://localhost:3000/details-book/${params.id}`),
       },
 
       {
@@ -83,7 +84,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/books/${params.id}`),
+          fetch(`http://localhost:3000/update-book/${params.id}`),
       },
       {
         path: "/auth/login",
