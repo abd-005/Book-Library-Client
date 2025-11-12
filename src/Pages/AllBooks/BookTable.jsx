@@ -6,7 +6,7 @@ const BookTable = ({ book }) => {
     return (
         <tr key={_id} className="hover:bg-base-100/50 bg-base-100/70">
               {/* Book Name (Title) */}
-              <td className="font-bold text-cyan-800 font-secondary">
+              <td className="font-bold text-primary font-secondary">
                 {title}
               </td>
               
@@ -30,13 +30,13 @@ const BookTable = ({ book }) => {
 
               {/* Actions Column */}
               <td>
-                <Link className="btn btn-ghost btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
-                <Link to={'/edit-book'} className="btn btn-ghost btn-md text-info rounded-2xl">
+                <Link className="btn btn-ghost btn-outline btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
+                {/* <Link to={'/edit-book'} className="btn btn-ghost btn-md text-info rounded-2xl">
                   Edit
                 </Link >
                 <Link to={'/delete-book'} className="btn btn-ghost btn-md text-error rounded-2xl">
                   Delete
-                </Link >
+                </Link > */}
               </td>
             </tr>
     );

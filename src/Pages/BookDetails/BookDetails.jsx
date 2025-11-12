@@ -13,6 +13,43 @@ const BookDetails = () => {
     
     const { _id, title, author, genre, rating ,summary, coverImage, added_by_name } = data.result;
 
+
+  const handleDlete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#00d084",
+      cancelButtonColor: "#cf2e2e",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/delete-book/${_id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            navigate("/all-books");
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
+
+
   return (
     <div className="max-w-6xl mx-auto p-42 pb-12 space-y-10">
       <div className="card bg-base-100/50 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
@@ -42,7 +79,7 @@ const BookDetails = () => {
               </div>
             </div>
 
-            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+            <p className="text-base-content leading-relaxed text-base md:text-lg">
               {summary}
             </p>
 
@@ -50,7 +87,7 @@ const BookDetails = () => {
               <Link className="btn btn-primary btn-md tex-info rounded-2xl" to={`/update-book/${_id}`}>Update</Link>
                 
               <button
-              
+                onClick={handleDlete}
                 className="btn btn-outline rounded-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
               >
                 Delete Book

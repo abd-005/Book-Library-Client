@@ -45,7 +45,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className={`fade-load navbar min-h-0 z-50 shadow-sm mx-auto fixed top-0 left-0 right-0 duration-300 ${scrolled ? 'bg-neutral' : 'bg-black opacity-100 glass'}`}>
+    <div className={`fade-load navbar min-h-0 z-50 shadow-sm mx-auto fixed top-0 left-0 right-0 duration-300 ${scrolled ? 'bg-neutral/70 glass' : 'bg-black/60 glass'}`}>
       <MyContainer>
         <div className="navbar py-7 px-5 min-h-0 z-1">
           <div className="navbar-start">
@@ -69,7 +69,7 @@ const NavBar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 z-1 mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100/50 z-1 mt-3 w-52 p-2"
               >
                 {links}
               </ul>
@@ -78,12 +78,12 @@ const NavBar = () => {
               to={"/"}
               className="flex items-center gap-1 text-2xl pl-2 md:text-4xl text-base-100 font-secondary"
             >
-              The Book{" "}
+              <span className="font-semibold text-base-100">The Book</span>
               <span className="gradient-text font-semibold"> Heaven</span>
             </Link>
           </div>
           <div className="navbar-center hidden md:flex">
-            <ul className="menu-horizontal px-1 gap-10 text-base-100 *:hover:border-white *:hover:text-primary">
+            <ul className={`menu-horizontal px-1 gap-10 text-base-100 *:hover:border-white *:hover:text-primary`}>
               {links}
             </ul>
           </div>
@@ -105,7 +105,7 @@ const NavBar = () => {
                 </div>
                 <ul
                   tabIndex="-1"
-                  className="menu menu-sm dropdown-content bg-base-100 z-50 mt-3 w-52 p-3 shadow rounded-2xl gradient-bg text-base-100"
+                  className="menu menu-sm dropdown-content z-50 mt-3 w-52 p-3 shadow rounded-2xl gradient-bg text-base-100"
                 >
                   <div className=" pb-3 border-b border-b-gray-200">
                     <li className="text-sm font-bold">{user.displayName}</li>
@@ -116,11 +116,11 @@ const NavBar = () => {
                   </li>
 
                   <li>
-                    <Link to={"/my-models"}>My Models</Link>
+                    <Link to={"/add-books"}>Add Books</Link>
                   </li>
 
                   <li>
-                    <Link to={"/my-downloads"}>My Downloads</Link>
+                    <Link to={"/my-books"}>My books</Link>
                   </li>
 
                   <input
