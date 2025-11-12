@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import MyContainer from "../../components/MyContainer";
 import BookTable from "./BookTable";
+import Loading from "../../components/Loading";
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
@@ -40,7 +41,7 @@ const AllBooks = () => {
     return () => controller.abort();
   }, []);
 
-  if (loading) return <p>Loading users...</p>;
+  if (loading) return <Loading/>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
