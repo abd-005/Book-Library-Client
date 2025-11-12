@@ -15,7 +15,7 @@ const BookDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-42 pb-12 space-y-10">
-      <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
+      <div className="card bg-base-100/50 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-8 p-6 md:p-8">
           <div className="shrink-0 w-full lg:w-1/2">
             <img
@@ -47,7 +47,7 @@ const BookDetails = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 mt-6">
-              <Link className="btn btn-primary btn-md tex-info rounded-2xl" to={`/update-book/${_id}`}>View Details</Link>
+              <Link className="btn btn-primary btn-md tex-info rounded-2xl" to={`/update-book/${_id}`}>Update</Link>
                 
               <button
               
