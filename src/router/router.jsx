@@ -55,7 +55,6 @@ export const router = createBrowserRouter([
             <BookDetails />
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/details-book/${params.id}`),
       },
 
       {

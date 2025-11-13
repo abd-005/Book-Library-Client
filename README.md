@@ -4,6 +4,7 @@ npm init -y
 npm install express --save 
 npm i cors 
 npm install mongodb
+npm i firebase-admin
 
 '''
 

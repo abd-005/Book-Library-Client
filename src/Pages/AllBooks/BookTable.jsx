@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const BookTable = ({ book }) => {
-  const { _id, title, author, genre, rating } = book;
+  const { _id, title, author, genre, rating, userEmail } = book;
     return (
         <tr key={_id} className="hover:bg-base-100/50 bg-base-100/70">
               {/* Book Name (Title) */}
@@ -31,12 +31,12 @@ const BookTable = ({ book }) => {
               {/* Actions Column */}
               <td>
                 <Link className="btn btn-ghost btn-outline btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
-                {/* <Link to={'/edit-book'} className="btn btn-ghost btn-md text-info rounded-2xl">
-                  Edit
-                </Link >
-                <Link to={'/delete-book'} className="btn btn-ghost btn-md text-error rounded-2xl">
-                  Delete
-                </Link > */}
+              </td>
+              {/* Created By */}
+              <td>
+                <span className="badge badge-outline badge-sm">
+                  {userEmail}
+                </span>
               </td>
             </tr>
     );
