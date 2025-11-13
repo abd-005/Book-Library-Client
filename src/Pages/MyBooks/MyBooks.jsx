@@ -12,7 +12,11 @@ const MyBooks = () => {
         console.log(user.email)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myBooks?email=${user.email}`)
+    fetch(`http://localhost:3000/myBooks?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
     .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -27,8 +31,8 @@ const MyBooks = () => {
   return <div className="pt-42 pb-12">
     <MyContainer>
             <div className="text-center">
-              <h2 className="font-secondary text-4xl font-semibold text-base-100">All Books</h2>
-              <h2 className="font-secondary-sans text-base-200">Explore The Book Heaven</h2>
+              <h2 className="font-secondary text-4xl font-semibold text-base-100">My Books</h2>
+              <h2 className="font-secondary-sans text-base-200">Books that's you added</h2>
             </div>
             <div className="overflow-x-auto shadow-lg rounded-lg my-6">
           <table className="table w-full text-base">
