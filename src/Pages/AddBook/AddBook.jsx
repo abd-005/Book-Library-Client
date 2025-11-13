@@ -7,6 +7,8 @@ const AddBook = () => {
   const axiosInstance = useAxios();
   const {user} = useAuth();
 
+  console.log(user)
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -17,21 +19,22 @@ const AddBook = () => {
       rating: parseFloat(e.target.rating.value),
       summary: e.target.summary.value,
       coverImage: e.target.coverImage.value,
-      
-      added_by_email: user.email,
-      added_by_name: user.displayName,
+      image: e.target.coverImage.value,
+      email: user.email,
+      user_name: user.displayName,
       created_at: new Date(),
     };
+    console.log(formData);
 
     if (formData.rating < 0 || formData.rating > 5) {
       toast.error("Rating must be between 0 and 5.");
       return;
     }
     
-    axiosInstance.post("/add-book", formData)
-      .then(res => {
+    axiosInstance.post('/add-book', formData)
+      .then(data => {
         toast.success("Book successfully added!");
-        console.log("Book added response:", res.data);
+        console.log("Book added response:", data);
         e.target.reset();
       })
       .catch(err => {

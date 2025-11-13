@@ -23,8 +23,8 @@ const LatestBooks = () => {
 
         axiosInstance.get(
           "/latest-books").then(books=>(
-            setBooks(books.data),
-            console.log(books.data)
+            setBooks(books.data)
+            // console.log(books.data)
           ));
 
         // setBooks(response.data);

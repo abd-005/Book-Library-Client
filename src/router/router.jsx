@@ -11,7 +11,6 @@ import AddBook from "../Pages/AddBook/AddBook";
 import BookDetails from "../Pages/BookDetails/BookDetails";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
 import MyBooks from "../Pages/MyBooks/MyBooks";
-import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 import NotFound from "../Pages/Error/NotFound";
 import Loading from "../components/Loading";
 
@@ -58,19 +57,10 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/my-books",
+        path: "/myBooks",
         element: (
           <PrivateRoute>
             <MyBooks />
-          </PrivateRoute>
-        ),
-      },
-
-      {
-        path: "/my-downloads",
-        element: (
-          <PrivateRoute>
-            <MyDownloads />
           </PrivateRoute>
         ),
       },
@@ -83,7 +73,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/update-book/${params.id}`),
+          fetch(`http://localhost:3000/details-book/${params._id}`),
       },
       {
         path: "/auth/login",

@@ -15,9 +15,9 @@ import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 
 const Registration = () => {
-  const [name, setName] = useState("");
+  const [user_name, setUser_name] = useState("");
   const [email, setEmail] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
+  const [user_image, setUser_image] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -79,8 +79,8 @@ const Registration = () => {
         password
       );
       await updateProfile(result.user, {
-        displayName: name,
-        photoURL: photoURL,
+        displayName: user_name,
+        photoURL: user_image,
       });
 
       login(result.user);
@@ -136,8 +136,8 @@ const Registration = () => {
               </label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={user_name}
+                onChange={(e) => setUser_name(e.target.value)}
                 className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your full name"
                 required
@@ -164,8 +164,8 @@ const Registration = () => {
               </label>
               <input
                 type="url"
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
+                value={user_image}
+                onChange={(e) => setUser_image(e.target.value)}
                 className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your photo URL"
                 required

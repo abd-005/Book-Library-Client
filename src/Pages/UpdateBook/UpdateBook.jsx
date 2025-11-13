@@ -4,10 +4,9 @@ import { toast } from 'react-toastify';
 
 const UpdateBook = () => {
     
-     const data = useLoaderData();
-  const book = data.result;
-  console.log(book);
-
+  const data = useLoaderData();
+  const book = data;
+  console.log(book)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,7 +18,7 @@ const UpdateBook = () => {
     };
     // console.log(formData);
 
-    fetch(`http://localhost:3000/update-book/${book._id}`, {
+    fetch(`http://localhost:3000/update-book/${book.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

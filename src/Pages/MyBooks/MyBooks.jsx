@@ -1,11 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Loading";
+import BookTable from "../AllBooks/BookTable";
+import MyContainer from "../../components/MyContainer";
 
 const MyBooks = () => {
-    return (
-        <div>
-            MyBooks
+    const [loading, setLoading] = useState();
+    const [books, setBooks] = useState([]);
+    const {user} = useAuth();
+
+        console.log(user.email)
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/myBooks?email=${user.email}`)
+    .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        setBooks(data);
+      });
+  }, []);
+
+  if(loading){
+    return <Loading/>
+  }
+
+  return <div className="pt-42 pb-12">
+    <MyContainer>
+            <div className="text-center">
+              <h2 className="font-secondary text-4xl font-semibold text-base-100">All Books</h2>
+              <h2 className="font-secondary-sans text-base-200">Explore The Book Heaven</h2>
+            </div>
+            <div className="overflow-x-auto shadow-lg rounded-lg my-6">
+          <table className="table w-full text-base">
+            {/* Table Header*/}
+            <thead>
+              <tr className="bg-base-200/80 text-lg">
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Rating</th>
+                <th>Actions</th>
+                <th>Created By</th>
+              </tr>
+            </thead>
+            
+            {/* Table Body*/}
+            <tbody>
+              {books.map((book) => (
+                <BookTable key={book._id} book={book} />
+              ))}
+            </tbody>
+          </table>
+          <div className="p-4 bg-base-300/80 rounded-b-lg">
+            <span className="text-sm text-base-200">
+              Total Books: {books.length}
+            </span>
+          </div>
         </div>
-    );
+          </MyContainer>
+  </div>;
 };
 
 export default MyBooks;

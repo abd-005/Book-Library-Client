@@ -35,7 +35,7 @@ const NavBar = () => {
         <NavLink to={"/add-book"}>Add Book</NavLink>
       </li>
       <li>
-        <NavLink to={"/my-books"}>My Book</NavLink>
+        <NavLink to={"/myBooks"}>My Book</NavLink>
       </li>
     </>
   );
@@ -111,17 +111,7 @@ const NavBar = () => {
                     <li className="text-sm font-bold">{user.displayName}</li>
                     <li className="text-xs">{user.email}</li>
                   </div>
-                  <li className="mt-3">
-                    <Link to={"/profile"}>Profile</Link>
-                  </li>
-
-                  <li>
-                    <Link to={"/add-books"}>Add Books</Link>
-                  </li>
-
-                  <li>
-                    <Link to={"/my-books"}>My books</Link>
-                  </li>
+                  {links}
 
                   <input
                     onChange={(e) => handleTheme(e.target.checked)}

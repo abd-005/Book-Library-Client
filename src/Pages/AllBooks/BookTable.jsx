@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const BookTable = ({ book }) => {
-  const { _id, title, author, genre, rating, userEmail } = book;
+  const { _id, title, author, genre, rating, email } = book;
+ 
     return (
         <tr key={_id} className="hover:bg-base-100/50 bg-base-100/70">
               {/* Book Name (Title) */}
@@ -35,7 +36,7 @@ const BookTable = ({ book }) => {
               {/* Created By */}
               <td>
                 <span className="badge badge-outline badge-sm">
-                  {userEmail}
+                  {email}
                 </span>
               </td>
             </tr>

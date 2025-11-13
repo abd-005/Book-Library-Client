@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLoaderData, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "../../components/Loading";
 
 const BookDetails = () => {
   const navigate = useNavigate();
-  const {id} = useParams(); 
-  const data  = useLoaderData();
+  const { id } = useParams();
+  // const data  = useLoaderData();
   const { user } = useAuth();
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
-    
-    // const { _id, title, author, genre, rating ,summary, coverImage, user_name } = data;
 
-    // console.log(id)
-  useEffect(()=>{
-    fetch(`http://localhost:3000/details-book/${id}`,{
+  // const { _id, title, author, genre, rating ,summary, coverImage, user_name } = data;
+  useEffect(() => {
+    fetch(`http://localhost:3000/details-book/${id}`, {
       headers: {
-        authorization: `Bearer ${user.accessToken}`
-      }
-    }).then(res => res.json())
-  .then(data =>{
-    // console.log(data)
-    setLoading(false);
-    setBook(data.result)})
-  }, [])
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        setBook(data.result);
+      });
+  }, []);
 
   const handleDelete = () => {
     Swal.fire({
@@ -39,7 +38,7 @@ const BookDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/delete-book/${_id}`, {
+        fetch(`http://localhost:3000/delete-book/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -63,8 +62,8 @@ const BookDetails = () => {
     });
   };
 
-  if(loading){
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
   return (
     <div className="max-w-6xl mx-auto p-42 pb-12 space-y-10">
@@ -94,24 +93,24 @@ const BookDetails = () => {
                 Added by: {book.user_name}
               </div>
             </div>
-
             <p className="text-base-content leading-relaxed text-base md:text-lg">
               {book.summary}
             </p>
 
             <div className="flex flex-wrap gap-3 mt-6">
-              <Link className="btn btn-primary btn-md tex-info rounded-2xl" to={`/update-book/${book._id}`}>Update</Link>
-                
+              <Link
+                className="btn btn-primary btn-md tex-info rounded-2xl"
+                to={`/update-book/${book._id}`}
+              >
+                Update
+              </Link>
               <button
                 onClick={handleDelete}
                 className="btn btn-outline rounded-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
               >
                 Delete Book
               </button>
-            
-        
-              
-    </div>
+            </div>
           </div>
         </div>
       </div>
