@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../components/Loading";
-import BookTable from "../AllBooks/BookTable";
 import MyContainer from "../../components/MyContainer";
+import MyBookTable from "./MyBookTable";
 
 const MyBooks = () => {
     const [loading, setLoading] = useState();
@@ -22,7 +22,7 @@ const MyBooks = () => {
         setLoading(false);
         setBooks(data);
       });
-  }, []);
+  }, [user]);
 
   if(loading){
     return <Loading/>
@@ -44,14 +44,15 @@ const MyBooks = () => {
                 <th>Genre</th>
                 <th>Rating</th>
                 <th>Actions</th>
-                <th>Created By</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
             
             {/* Table Body*/}
             <tbody>
               {books.map((book) => (
-                <BookTable key={book._id} book={book} />
+                <MyBookTable key={book._id} book={book} />
               ))}
             </tbody>
           </table>

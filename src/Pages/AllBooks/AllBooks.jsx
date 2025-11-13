@@ -61,7 +61,6 @@ const AllBooks = () => {
             <th>Genre</th>
             <th>Rating</th>
             <th>Actions</th>
-            <th>Created By</th>
           </tr>
         </thead>
         

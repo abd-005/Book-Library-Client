@@ -38,7 +38,7 @@ const BookTable = ({ book }) => {
                 <span className="badge badge-outline badge-sm">
                   {email}
                 </span>
-              </td>
+                </td>
             </tr>
     );
 };

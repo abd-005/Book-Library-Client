@@ -128,7 +128,7 @@ const Login = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your email"
                 required
               />
@@ -143,13 +143,13 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                  className="w-full px-4 py-3 pr-12 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                   placeholder="Enter your password"
                   required
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-[8px] top-[14px] cursor-pointer text-gray-400 hover:text-gray-800 text-xl z-50"
+                  className="absolute right-2 top-3.5cursor-pointer text-gray-400 hover:text-gray-800 text-xl z-50"
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </span>

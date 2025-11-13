@@ -222,7 +222,7 @@
 .font-primary {
   font-family: "Cormorant Garamond", serif;
 }
-.font-secondary-sans {
+*, .font-secondary-sans {
   font-family: "Quattrocento Sans", sans-serif;
 }
 .font-secondary {

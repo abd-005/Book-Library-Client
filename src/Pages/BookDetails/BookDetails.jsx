@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 // import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "../../components/Loading";
+import toast from "react-hot-toast";
+import MyContainer from "../../components/MyContainer";
 
 const BookDetails = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { id } = useParams();
   // const data  = useLoaderData();
   const { user } = useAuth();
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newData, setNewData] = useState(true);
+  const {cout, setCount} = useState()
 
-  // const { _id, title, author, genre, rating ,summary, coverImage, user_name } = data;
   useEffect(() => {
     fetch(`http://localhost:3000/details-book/${id}`, {
       headers: {
@@ -22,56 +25,60 @@ const BookDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        // console.log(data)
         setLoading(false);
         setBook(data.result);
       });
   }, []);
 
-  const handleDelete = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#00d084",
-      cancelButtonColor: "#cf2e2e",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/delete-book/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            navigate("/all-books");
+  const handleComment = (e) => {
 
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    });
+    e.preventDefault();
+    setCount((count) => count + 1)
+    const formData = {
+      comment: e.target.comment.value,
+    };
+    const finalData = {
+      title : book.title,
+      commented_by : user.displayName,
+      comment : formData.comment,
+      summery : book.summery,
+      created_at: new Date(),
+      user_image: user.photoURL,
+      user_name: user.user_name
+
+    }
+    // console.log(formData.comment)
+
+    fetch(`http://localhost:3000/comments/${book._id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
+      },
+      body: JSON.stringify({finalData}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNewData(data.data.finalData);
+        setLoading(false);
+        toast.success("Commented!");
+        console.log(data.data.finalData)
+        e.target.reset();
+      });
   };
 
+  console.log(book, "user: ", user);
   if (loading) {
     return <Loading />;
   }
   return (
     <div className="max-w-6xl mx-auto p-42 pb-12 space-y-10">
-      <div className="card bg-base-100/50 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
+      <div className="card bg-base-100/50 shadow-xl border border-gray-200 rounded-2xl overflow-hidden ">
         <div className="flex flex-col lg:flex-row gap-8 p-6 md:p-8">
           <div className="shrink-0 w-full lg:w-1/2">
             <img
-              src={book.coverImage}
+              src={book.image}
               alt={book.title}
               className="w-full h-96 md:h-full object-cover rounded-xl shadow-lg"
             />
@@ -96,22 +103,57 @@ const BookDetails = () => {
             <p className="text-base-content leading-relaxed text-base md:text-lg">
               {book.summary}
             </p>
-
-            <div className="flex flex-wrap gap-3 mt-6">
-              <Link
-                className="btn btn-primary btn-md tex-info rounded-2xl"
-                to={`/update-book/${book._id}`}
-              >
-                Update
-              </Link>
-              <button
-                onClick={handleDelete}
-                className="btn btn-outline rounded-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-              >
-                Delete Book
-              </button>
-            </div>
           </div>
+        </div>
+        <hr className="text-cyan-800" />
+        <div className="pt-6 pb-6">
+            <div className="text-center">
+              <h2 className="font-secondary text-4xl font-semibold">
+                Comments
+              </h2>
+            </div>
+          <MyContainer>
+            <div className="overflow-x-auto w-10/11 rounded-lg mx-auto">
+              <div className="p-4 bg-base-100/50 mb-6 rounded-b-lg shadow-md">
+                <div className="bg-transparent max-w-full">
+                          <div className="flex items-center justify-left gap-3">
+                        <figure className="w-12 h-12 bg-base-300 rounded-full">
+                      <img
+                        src={newData.user_image}
+                        alt={"user"}
+                        className=" "
+                      />
+                    </figure>
+                        <h2 className="card-title text-xl font-semibold m-1">{newData.commented_by}</h2>
+                      </div>
+
+
+                      <p className="bg-base-300 w-full mt-3 p-5 rounded-full flex items-center justify-between">
+                        {newData.comment} <span> {newData.created_at}</span>
+                      </p>
+                      
+                    
+                  </div>
+              </div>
+              <form onSubmit={handleComment} className="mx-3 my-6 gap-3 grid grid-cols-3 items-center justify-center">
+                          <input type="text" 
+                          name = 'comment'
+                          required
+                          className="col-span-2   px-4 py-3 border bg-base-200/80 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary text-cyan-800 placeholder:text-base-300"
+                          placeholder="Comment here"
+                          />
+
+                          <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn btn-outline rounded-full border-secondary"
+                          >
+                            Comment
+                          </button>
+                        </form>
+              
+            </div>
+          </MyContainer>
         </div>
       </div>
     </div>

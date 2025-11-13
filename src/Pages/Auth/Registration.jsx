@@ -138,7 +138,7 @@ const Registration = () => {
                 type="text"
                 value={user_name}
                 onChange={(e) => setUser_name(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your full name"
                 required
               />
@@ -152,7 +152,7 @@ const Registration = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your email"
                 required
               />
@@ -166,7 +166,7 @@ const Registration = () => {
                 type="url"
                 value={user_image}
                 onChange={(e) => setUser_image(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your photo URL"
                 required
               />
@@ -180,13 +180,13 @@ const Registration = () => {
                 type={show ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border-1 border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
+                className="w-full px-4 py-3 border border-cyan-200 rounded-full focus:outline-none focus:ring-2 focus:ring-border-secondary bg-transparent text-base-100 placeholder:text-base-300"
                 placeholder="Enter your password"
                 required
               />
               <span
                 onClick={() => setShow(!show)}
-                className="absolute right-[8px] top-[40px] cursor-pointer z-50"
+                className="absolute right-2 top-10 cursor-pointer z-50"
               >
                 {show ? <FaEye /> : <IoEyeOff />}
               </span>

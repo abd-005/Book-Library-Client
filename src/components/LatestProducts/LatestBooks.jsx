@@ -27,7 +27,6 @@ const LatestBooks = () => {
             // console.log(books.data)
           ));
 
-        // setBooks(response.data);
       } catch (err) {
         if (err.name !== "CanceledError" && !err.signal?.aborted) {
           const msg = err.response?.data?.message || err.message || "Failed to load book";
@@ -41,7 +40,7 @@ const LatestBooks = () => {
 
     fetchUsers();
     return () => controller.abort();
-  }, []);
+  }, [axiosInstance]);
 
   if (loading) return <Loading/>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
