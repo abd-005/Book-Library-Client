@@ -91,7 +91,7 @@ const BookDetails = () => {
           </div>
 
           <div className="flex flex-col justify-center space-y-5 w-full lg:w-1/2">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
+            <h1 className="font-secondary text-4xl font-semibold text-base-100">
               {book?.title}
             </h1>
 
@@ -114,7 +114,7 @@ const BookDetails = () => {
         <hr className="text-cyan-800" />
         <div className="pt-6 pb-6">
           <div className="text-center flex items-center justify-center">
-            <h2 className="font-secondary text-4xl font-semibold">Comments</h2>
+            <h2 className="font-secondary text-4xl font-semibold text-base-100">Comments</h2>
           </div>
           <MyContainer>
             <div className="overflow-x-auto w-10/11 rounded-lg mx-auto">

@@ -43,7 +43,7 @@ const UpdateBook = () => {
     <div className="pt-42 pb-12">
       <div className="card bg-base-100/50 w-full max-w-md mx-auto shadow-2xl rounded-2xl ">
         <div className="card-body p-6 relative">
-          <h2 className="text-2xl font-bold text-center mb-6">Update Book</h2>
+          <h2 className="font-secondary text-4xl font-semibold text-base-100 text-center mb-6">Update Book</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Field */}
             <div>

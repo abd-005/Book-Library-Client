@@ -25,3 +25,4 @@ npm install axios
 npm install react-fast-marquee
 npm install react-spinners
 npm i sweetalert2
+npm i date-fns

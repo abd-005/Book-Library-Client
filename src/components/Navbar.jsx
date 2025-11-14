@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router";
 import { useEffect, useState } from "react";
 import MyContainer from "./MyContainer";
 import useAuth from "../hooks/useAuth";
+import { Tooltip } from "react-tooltip";
 
 
 const NavBar = () => {
@@ -80,6 +81,7 @@ const NavBar = () => {
             >
               <div className="text-2xl pl-2 md:text-4xl text-base-100">
                 <h2 className="font-primary">The Book Heaven</h2>
+
               </div>
             </Link>
           </div>
