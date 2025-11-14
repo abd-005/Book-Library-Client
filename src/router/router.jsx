@@ -24,12 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        // loader: () => fetch("http://localhost:3000/"),
       },
       {
         path: "/all-books",
         element: <AllBooks />,
-        // loader: () => axiosInstance.get("/all-books"),
       },
       {
         path: "/profile",
@@ -82,10 +80,6 @@ export const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Register />,
-      },
-      {
-        path: "/forgot-password",
-        element: <ForgotPassword />,
       },
     ],
   },

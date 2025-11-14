@@ -186,7 +186,7 @@ const Registration = () => {
               />
               <span
                 onClick={() => setShow(!show)}
-                className="absolute right-2 top-10 cursor-pointer z-50"
+                className="absolute right-5 top-11 cursor-pointer  text-gray-400 hover:text-gray-800 text-xl z-50"
               >
                 {show ? <FaEye /> : <IoEyeOff />}
               </span>

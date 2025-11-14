@@ -73,7 +73,6 @@ const BookDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // setNewData(data.data.finalData);
         setLoading(false);
         toast.success("Commented!");
         console.log("After Post:: ",data);

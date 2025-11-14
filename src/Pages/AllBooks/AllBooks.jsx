@@ -9,9 +9,33 @@ const AllBooks = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const axiosInstance = useAxios();
+  const [sortBy, setSortBy] = useState("");
 
-   useEffect(() => {
+    if (sortBy === "low_to_high") {
+      fetch("http://localhost:3000/books-desync").then(res=>res.json())
+        .then((data) => {
+          setBooks(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching toys:", error);
+          setLoading(false);
+        });
+    }
+    else if (sortBy === "high_to_low") {
+      fetch("http://localhost:3000/books-aync").then(res=>res.json())
+        .then((data) => {
+          setBooks(data);
 
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching toys:", error);
+          setLoading(false);
+        });
+    }
+
+  useEffect(() => {
     const controller = new AbortController();
 
     async function fetchUsers() {
@@ -19,11 +43,10 @@ const AllBooks = () => {
         setLoading(true);
         setError(null);
 
-        axiosInstance.get(
-          "/all-books").then(books=>(
-            setBooks(books.data)
-            // console.log(books.data)
-          ));
+        axiosInstance.get("/all-books").then(
+          (books) => setBooks(books.data)
+          // console.log(books.data)
+        );
 
         // setBooks(response.data);
       } catch (err) {
@@ -40,43 +63,68 @@ const AllBooks = () => {
     fetchUsers();
     return () => controller.abort();
   }, []);
-
-  if (loading) return <Loading/>;
+ 
+  if (loading) return <Loading />;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
-     <div className="pt-42 pb-12">
+    <div className="pt-42 pb-12">
       <MyContainer>
         <div className="text-center">
-          <h2 className="font-secondary text-4xl font-semibold text-base-100">All Books</h2>
-          <h2 className="font-secondary-sans text-base-200">Explore The Book Heaven</h2>
+          <h2 className="font-secondary text-4xl font-semibold text-base-100">
+            All Books
+          </h2>
         </div>
-        <div className="overflow-x-auto shadow-lg rounded-lg my-6">
-      <table className="table w-full text-base">
-        {/* Table Header*/}
-        <thead>
-          <tr className="bg-base-200/80 text-lg">
-            <th>Book Name</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Rating</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        
-        {/* Table Body*/}
-        <tbody>
-          {books.map((book) => (
-            <BookTable key={book._id} book={book} />
-          ))}
-        </tbody>
-      </table>
-      <div className="p-4 bg-base-300/80 rounded-b-lg">
-        <span className="text-sm text-base-200">
-          Total Books: {books.length}
-        </span>
-      </div>
-    </div>
+
+        {/* table  */}
+
+        <div className="bg-base-100/50 p-5 rounded-xl mt-12">
+          <div className="grid grid-cols-7 mt-3 items-center">
+            <div className="col-span-5">
+              <h2 className="font-secondary-sans text-base-200 text-4xl text-center">
+                Explore All The Books of Heaven
+              </h2>
+            </div>
+            <div className="col-span-2 flex items-center justify-around text-left bg-base-100/50 p-3 rounded-full">
+              <p className="text-xl">Sort by Rating : </p>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 border border-cyan-200 bg-base-300/50 rounded-full focus:outline-none focus:ring-2 focus:cyan-200"
+              >
+                <option>Select Options</option>
+                <option value="high_to_low">High to Low</option>
+                <option value="low_to_high">Low to High</option>
+              </select>
+            </div>
+          </div>
+          <div className="overflow-x-auto shadow-lg rounded-lg my-6">
+            <table className="table w-full text-base text-center">
+              {/* Table Header*/}
+              <thead>
+                <tr className="bg-base-200/80 text-lg">
+                  <th>Book Name</th>
+                  <th>Author</th>
+                  <th>Genre</th>
+                  <th>Rating</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              {/* Table Body*/}
+              <tbody>
+                {books.map((book) => (
+                  <BookTable key={book._id} book={book} />
+                ))}
+              </tbody>
+            </table>
+            <div className="p-4 bg-base-300/80 rounded-b-lg">
+              <span className="text-sm text-base-200">
+                Total Books: {books.length}
+              </span>
+            </div>
+          </div>
+        </div>
       </MyContainer>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { Navigate, useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
 
 const UpdateBook = () => {
@@ -31,6 +31,7 @@ const UpdateBook = () => {
         console.log("after update",data);
         if(data.modifiedCount){
                     toast.success("Successfully updated!");
+                    
                     e.target.reset;
                 }
         

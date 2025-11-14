@@ -149,7 +149,7 @@ const Login = () => {
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-3.5cursor-pointer text-gray-400 hover:text-gray-800 text-xl z-50"
+                  className="absolute right-5 top-3.5 cursor-pointer text-gray-400 hover:text-gray-800 text-xl z-50"
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </span>
@@ -157,7 +157,7 @@ const Login = () => {
             </div>
             <div className="text-right">
               <Link
-                to="/forgot-password"
+                to=""
                 state={{ email }}
                 className="text-cyan-200 hover:text-cyan-800 font-semibold"
               >

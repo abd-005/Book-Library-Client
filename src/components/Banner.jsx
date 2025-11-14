@@ -47,7 +47,7 @@ const Banner = () => {
                       </p>
                     </div>
                     <Link
-                      to={"/all-book"}
+                      to={"/all-books"}
                       className="btn btn-secondary fade-load"
                     >
                       All Book

@@ -1,6 +1,8 @@
 import React from "react";
-import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+
+import Loading from "../../components/Loading";
 
 const AddBook = () => {
   const { user } = useAuth();
@@ -38,13 +40,16 @@ const AddBook = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Successfully added!");
-        console.log(data);
-        e.target.reset();
+        console.log('After Submit: ',data.insertedId);
+        // if(data.insertedId){
+          toast("Successfully Added Book!")
+          e.target.reset();
+        // }
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      
   };
 
   return (
@@ -109,7 +114,7 @@ const AddBook = () => {
                 max="5"
                 step="0.1"
                 required
-                className="input input-bordered w-full rounded-full focus:outline-primary/50"
+                className="input input-bordered w-full rounded-full focus:outline-primary/50 pr-6"
                 placeholder="e.g., 4.5"
               />
             </div>
