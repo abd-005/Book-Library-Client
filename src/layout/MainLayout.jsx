@@ -8,8 +8,7 @@ const MainLayout = () => {
   return (
     <div className="gradient-animated">
       <Navbar />
-      <Toaster/>
-      <div className="">
+      <div className="min-h-screen">
         <Outlet />
       </div>
       <Footer />

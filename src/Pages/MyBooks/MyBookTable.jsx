@@ -1,10 +1,8 @@
-import React from "react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
 const MyBookTable = ({ book }) => {
   const { _id, title, author, genre, rating } = book;
-  //   const navigate = useNavigate();
   console.log(_id);
   const handleDelete = () => {
     Swal.fire({
@@ -17,7 +15,7 @@ const MyBookTable = ({ book }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/delete-book/${_id}`, {
+        fetch(`https://book-library-server-xi.vercel.app/delete-book/${_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

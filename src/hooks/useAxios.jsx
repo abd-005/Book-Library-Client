@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
-    headers: {
-//  Authorization: `<Your Auth Token>`,
-    "content-type" :"application/json",
-  }, 
-})
+  baseURL: "https://book-library-server-xi.vercel.app",
+  headers: {
+    //  Authorization: `<Your Auth Token>`,
+    "content-type": "application/json",
+  },
+});
 
 const useAxios = () => {
-    return axiosInstance;
+  return axiosInstance;
 };
 
 export default useAxios;

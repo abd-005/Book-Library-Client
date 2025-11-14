@@ -11,29 +11,27 @@ const AllBooks = () => {
   const axiosInstance = useAxios();
   const [sortBy, setSortBy] = useState("");
 
-    if (sortBy === "low_to_high") {
-      fetch("http://localhost:3000/books-desync").then(res=>res.json())
-        .then((data) => {
-          setBooks(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching toys:", error);
-          setLoading(false);
-        });
-    }
-    else if (sortBy === "high_to_low") {
-      fetch("http://localhost:3000/books-aync").then(res=>res.json())
-        .then((data) => {
-          setBooks(data);
+  useEffect(() => {
+    if (!sortBy) return;
 
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching toys:", error);
-          setLoading(false);
-        });
-    }
+    setLoading(true);
+
+    const url =
+      sortBy === "low_to_high"
+        ? "https://book-library-server-xi.vercel.app/books-desync"
+        : "https://book-library-server-xi.vercel.app/books-aync";
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setBooks(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching sorted books:", error);
+        setLoading(false);
+      });
+  }, [sortBy]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -63,7 +61,7 @@ const AllBooks = () => {
     fetchUsers();
     return () => controller.abort();
   }, []);
- 
+
   if (loading) return <Loading />;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 

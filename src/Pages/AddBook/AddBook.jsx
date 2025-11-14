@@ -31,7 +31,7 @@ const AddBook = () => {
       return;
     }
 
-    fetch("http://localhost:3000/add-book", {
+    fetch("https://book-library-server-xi.vercel.app/add-book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,16 +40,15 @@ const AddBook = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('After Submit: ',data.insertedId);
+        console.log("After Submit: ", data.insertedId);
         // if(data.insertedId){
-          toast("Successfully Added Book!")
-          e.target.reset();
+        toast("Successfully Added Book!");
+        e.target.reset();
         // }
       })
       .catch((err) => {
         console.log(err);
-      })
-      
+      });
   };
 
   return (

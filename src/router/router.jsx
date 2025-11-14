@@ -71,7 +71,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/details-book/${params.id}`),
+          fetch(
+            `https://book-library-server-xi.vercel.app/details-book/${params.id}`
+          ),
       },
       {
         path: "/auth/login",

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
-// import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Loading from "../../components/Loading";
 import toast from "react-hot-toast";
@@ -9,20 +8,17 @@ import MyContainer from "../../components/MyContainer";
 import Comment from "./Comment";
 
 const BookDetails = () => {
-  // const navigate = useNavigate();
   const { id } = useParams();
-  // const data  = useLoaderData();
   const { user } = useAuth();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newData, setNewData] = useState();
-  const [comments, setComments] = useState();
-  // const {cout, setCount} = useState()
+  const [refetch, setRefetch] = useState(false);
+  const [comments, setComments] = useState([]);
 
   ///////////////////////////////// Book Details
 
   useEffect(() => {
-    fetch(`http://localhost:3000/details-book/${id}`)
+    fetch(`https://book-library-server-xi.vercel.app/details-book/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -30,18 +26,19 @@ const BookDetails = () => {
         setBook(data.result);
       });
   }, [id]);
-  console.log(book._id)
-  /////////////////////////////////// Comments
+  console.log(book._id);
+  /////////////////////////////////// Get Comments
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-comments/${book._id}`)
+    if (!book._id) return;
+    fetch(`https://book-library-server-xi.vercel.app/book-comments/${book._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log("After get Book Comments: ", data);
         setLoading(false);
         setComments(data);
       });
-  }, []);
+  }, [book._id, refetch]);
 
   ///////////////////////////////////// handleComment
 
@@ -61,10 +58,8 @@ const BookDetails = () => {
       user_name: user.displayName,
       book_id: book._id,
     };
-    
-   
 
-    fetch(`http://localhost:3000/comments/${book._id}`, {
+    fetch(`https://book-library-server-xi.vercel.app/comments`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -75,12 +70,11 @@ const BookDetails = () => {
       .then((data) => {
         setLoading(false);
         toast.success("Commented!");
-        console.log("After Post:: ",data);
+        setRefetch(!refetch);
+        console.log("After Post:: ", data);
         e.target.reset();
       });
   };
-
-  // console.log(book, "user: ", user);
   if (loading) {
     return <Loading />;
   }
@@ -126,31 +120,9 @@ const BookDetails = () => {
             <div className="overflow-x-auto w-10/11 rounded-lg mx-auto">
               {/* Comment Section  */}
 
-              {/* <div className="p-4 bg-base-100/50 mb-6 rounded-b-lg shadow-md">
-                <div className="bg-transparent max-w-full">
-                  <div className="flex items-center justify-left gap-3">
-                    <figure className="w-12 h-12 bg-base-300 rounded-full">
-                      <img
-                        src={newData.user_image}
-                        alt={"user"}
-                        className=" "
-                      />
-                    </figure>
-                    <h2 className="card-title text-xl font-semibold m-1">
-                      {newData.user_name}
-                    </h2>
-                  </div>
-
-                  <p className="bg-base-300 w-full mt-3 p-5 rounded-full flex items-center justify-between">
-                    {newData.comment} <span> {newData.created_at}</span>
-                  </p>
-                </div>
-              </div> */}
-
-              {/* {comments.map((comment) => {
-                <Comment key={comment._id} comment={comment}></Comment>;
-              })} */}
-              <Comment/>
+              {comments.map((comment) => {
+                return <Comment key={comment._id} comment={comment}></Comment>;
+              })}
 
               {/* Form Section */}
 

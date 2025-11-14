@@ -12,7 +12,9 @@ const MyBooks = () => {
   console.log(user.email);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myBooks?email=${user.email}`)
+    fetch(
+      `https://book-library-server-xi.vercel.app/myBooks?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
