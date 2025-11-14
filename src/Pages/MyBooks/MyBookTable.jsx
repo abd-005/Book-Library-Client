@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 
-const MyBookTable = ({ book }) => {
+const MyBookTable = ({ book, books, setBooks }) => {
   const { _id, title, author, genre, rating } = book;
-  console.log(_id);
+
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -23,17 +23,12 @@ const MyBookTable = ({ book }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
-            // navigate("/all-books");
-
+            setBooks(books.filter((item) => item._id !== _id));
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your book has been deleted.",
               icon: "success",
             });
-          })
-          .catch((err) => {
-            console.log(err);
           });
       }
     });
@@ -41,29 +36,20 @@ const MyBookTable = ({ book }) => {
 
   return (
     <tr key={_id} className="hover:bg-base-100/50 bg-base-100/70">
-      {/* Book Name (Title) */}
       <td className="font-bold text-primary font-secondary">{title}</td>
-
-      {/* Author */}
       <td>{author}</td>
-
-      {/* Genre */}
       <td>
-        <span className="badge badge-outline badge-sm">{genre}</span>
+        <span className="badge badge-outline p-6 badge-sm">{genre}</span>
       </td>
-
-      {/* Rating */}
       <td>
         <div className="flex items-center space-x-2">
           <span className="text-warning">★</span>
           <span>{rating}</span>
         </div>
       </td>
-
-      {/* Actions Column */}
       <td>
         <Link
-          className="btn btn-ghost btn-outline btn-md tex-info rounded-2xl"
+          className="btn btn-ghost btn-outline btn-md tex-info p-6 rounded-2xl"
           to={`/details-book/${_id}`}
         >
           View Details
@@ -71,7 +57,7 @@ const MyBookTable = ({ book }) => {
       </td>
       <td>
         <Link
-          className="btn btn-primary tex-info rounded-2xl"
+          className="btn btn-primary tex-info p-6 rounded-2xl"
           to={`/update-book/${book._id}`}
         >
           Update
@@ -80,15 +66,11 @@ const MyBookTable = ({ book }) => {
       <td>
         <button
           onClick={handleDelete}
-          className="btn btn-outline rounded-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+          className="btn btn-error text-base-100 rounded-full py-6 md:py-3"
         >
           Delete Book
         </button>
       </td>
-      {/* Created By */}
-      {/* <td>
-        <span className="badge badge-outline badge-sm">{email}</span>
-      </td> */}
     </tr>
   );
 };

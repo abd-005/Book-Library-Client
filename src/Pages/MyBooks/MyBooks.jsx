@@ -9,15 +9,12 @@ const MyBooks = () => {
   const [books, setBooks] = useState([]);
   const { user } = useAuth();
 
-  console.log(user.email);
-
   useEffect(() => {
     fetch(
       `https://book-library-server-xi.vercel.app/myBooks?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setLoading(false);
         setBooks(data);
       });
@@ -40,7 +37,6 @@ const MyBooks = () => {
         </div>
         <div className="overflow-x-auto shadow-lg rounded-lg my-6">
           <table className="table w-full text-base">
-            {/* Table Header*/}
             <thead>
               <tr className="bg-base-200/80 text-lg">
                 <th>Book Name</th>
@@ -53,15 +49,19 @@ const MyBooks = () => {
               </tr>
             </thead>
 
-            {/* Table Body*/}
             <tbody>
               {books.map((book) => (
-                <MyBookTable key={book._id} book={book} />
+                <MyBookTable
+                  key={book._id}
+                  book={book}
+                  books={books}
+                  setBooks={setBooks}
+                />
               ))}
             </tbody>
           </table>
           <div className="p-4 bg-base-300/80 rounded-b-lg">
-            <span className="text-sm text-base-200">
+            <span className="text-sm">
               Total Books: {books.length}
             </span>
           </div>

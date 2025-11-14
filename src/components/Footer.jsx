@@ -13,41 +13,41 @@ const Footer = () => {
 
 
   return (
-    <footer className="bg-base-content py-8 px-4 ">
+    <footer className="bg-cyan-800 py-8 px-4">
         <MyContainer>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <div className="flex items-center space-x-2 text-white">
-      <span className="text-xl font-bold text-gray-800 dark:text-gray-200">The Book Heaven</span>
+          <div className="flex items-center space-x-2 text-base-100">
+      <span className="text-xl font-bold text-gray-300">The Book Heaven</span>
     </div>
           <ul className="space-y-2 mt-4">
-            <li><Link to="/all-models" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">All Books</Link></li>
-            <li><Link to="/add-model" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Add Book</Link></li>
-            <li><Link to="/profile" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Profile</Link></li>
-            <li><Link to="/auth/login" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Login</Link></li>
+            <li><Link to="/all-models" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">All Books</Link></li>
+            <li><Link to="/add-model" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Add Book</Link></li>
+            <li><Link to="/profile" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Profile</Link></li>
+            <li><Link to="/auth/login" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Login</Link></li>
           </ul>
         </div>
 
         <div>
-          <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">Resources</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-300 dark:text-gray-200">Resources</h3>
           <ul className="space-y-2">
-            <li><Link to="/" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Learning Blog</Link></li>
-            <li><Link to="/" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Guides</Link></li>
-            <li><Link to="/" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Poly Tips</Link></li>
-            <li><Link to="/resources" className="text-gray-600 dark:text-gray-200 hover:text-cyan-800">Resources</Link></li>
+            <li><Link to="/" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Learning Blog</Link></li>
+            <li><Link to="/" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Guides</Link></li>
+            <li><Link to="/" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Poly Tips</Link></li>
+            <li><Link to="/resources" className="text-gray-400 dark:text-gray-200 hover:text-cyan-800">Resources</Link></li>
           </ul>
         </div>
 
         <div>
-          <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">Connect With Us</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-300 dark:text-gray-200">Connect With Us</h3>
           <div className="flex space-x-4 mb-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-200 hover:text-blue-700">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-200 hover:text-blue-700">
               <FaFacebookF size={24}/>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-200 hover:text-black">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-200 hover:text-black">
               <FaXTwitter size={24}/>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-200 hover:text-pink-600">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 dark:text-gray-200 hover:text-pink-600">
               <BsInstagram size={24} />
             </a>
           
@@ -55,7 +55,7 @@ const Footer = () => {
           <div>
             <a 
               href="mailto:support@nihonlearn.com" 
-              className="flex items-center text-gray-600 dark:text-gray-200 hover:text-cyan-800"
+              className="flex items-center text-gray-400 dark:text-gray-200 hover:text-cyan-800"
             >
               <Mail size={18} className="mr-2" /> support@bookheaven.com
             </a>
@@ -65,7 +65,7 @@ const Footer = () => {
 
 
       <div className="border-t lg:mb-0 md:mb-0 mb-20 border-cyan-800 mt-8 pt-4 text-center">
-        <p className="text-sm text-gray-600 dark:text-gray-200">
+        <p className="text-sm text-gray-400 dark:text-gray-200">
           © {currentYear} The Book Heaven. All Rights Reserved.
           <span className="ml-4">
             <Link to="/" className="hover:text-cyan-800 mr-3">Privacy Policy</Link>

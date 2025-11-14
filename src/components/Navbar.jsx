@@ -45,7 +45,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className={`fade-load navbar min-h-0 z-50 shadow-sm mx-auto fixed top-0 left-0 right-0 duration-300 ${scrolled ? 'bg-neutral/70 glass' : 'bg-black/60 glass'}`}>
+    <div className={`fade-load navbar min-h-0 z-50 shadow-sm mx-auto fixed top-0 left-0 right-0 duration-300 ${scrolled ? 'bg-black/90' : 'bg-black/60 glass'}`}>
       <MyContainer>
         <div className="navbar py-7 px-5 min-h-0 z-1">
           <div className="navbar-start">
@@ -53,7 +53,7 @@ const NavBar = () => {
               <div tabIndex={0} role="button" className=" md:hidden">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
+                  className="h-5 w-5 text-base-100"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

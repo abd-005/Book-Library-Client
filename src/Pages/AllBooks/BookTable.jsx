@@ -16,7 +16,7 @@ const BookTable = ({ book }) => {
               
               {/* Genre */}
               <td>
-                <span className="badge badge-outline badge-sm">
+                <span className="badge badge-outline px-3 py-6  badge-sm">
                   {genre}
                 </span>
               </td>
@@ -31,7 +31,7 @@ const BookTable = ({ book }) => {
 
               {/* Actions Column */}
               <td>
-                <Link className="btn btn-ghost btn-outline btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
+                <Link className="btn btn-ghost btn-outline px-3 py-6 btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
               </td>
            
              

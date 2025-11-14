@@ -77,13 +77,13 @@ const AllBooks = () => {
         {/* table  */}
 
         <div className="bg-base-100/50 p-5 rounded-xl mt-12">
-          <div className="grid grid-cols-7 mt-3 items-center">
-            <div className="col-span-5">
+          <div className="grid lg:grid-cols-7 mt-3 items-center">
+            <div className="lg:col-span-5">
               <h2 className="font-secondary-sans text-base-200 text-4xl text-center">
                 Explore All The Books of Heaven
               </h2>
             </div>
-            <div className="col-span-2 flex items-center justify-around text-left bg-base-100/50 p-3 rounded-full">
+            <div className="lg:col-span-2 flex items-center justify-around text-left bg-base-100/50 p-3 rounded-full mt-5">
               <p className="text-xl">Sort by Rating : </p>
               <select
                 value={sortBy}

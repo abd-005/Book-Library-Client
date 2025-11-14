@@ -38,7 +38,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="gradient-animated min-h-screen py-[10vh]">
+    <div className="dark:gradient-animated bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  min-h-screen py-[10vh]">
       <MyContainer>
         <div className="max-w-md mx-auto bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 border border-white/20">
           <h2 className="text-3xl font-bold text-center text-slate-700 mb-8">
