@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 import toast from "react-hot-toast";
-import useAxios from "../../hooks/useAxios";
-import useAuth from '../../hooks/useAuth';
+import useAuth from "../../hooks/useAuth";
 
 const AddBook = () => {
-  const axiosInstance = useAxios();
-  const {user} = useAuth();
+  const { user } = useAuth();
 
-  console.log(user)
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,16 +28,22 @@ const AddBook = () => {
       toast.error("Rating must be between 0 and 5.");
       return;
     }
-    
-    axiosInstance.post('/add-book', formData)
-      .then(data => {
-        toast.success("Book successfully added!");
-        console.log("Book added response:", data);
+
+    fetch("http://localhost:3000/add-book", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Successfully added!");
+        console.log(data);
         e.target.reset();
       })
-      .catch(err => {
-        console.error("Error adding book:", err);
-        toast.error("Failed to add book. Please check console.");
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -47,9 +51,12 @@ const AddBook = () => {
     <div className="pt-42 pb-12">
       <div className="card border border-gray-200 bg-base-100/50 w-full max-w-2xl mx-auto shadow-2xl rounded-2xl">
         <div className="card-body p-6 relative">
-          <div className='mx-auto'><h2 className="font-secondary text-4xl font-semibold text-base-100 mb-6">Add New Book to Library</h2></div>
+          <div className="mx-auto">
+            <h2 className="font-secondary text-4xl font-semibold text-base-100 mb-6">
+              Add New Book to Library
+            </h2>
+          </div>
           <form onSubmit={handleSubmit} className="space-y-4">
-            
             <div>
               <label className="label font-medium">Title</label>
               <input
@@ -71,7 +78,7 @@ const AddBook = () => {
                 placeholder="e.g., Douglas Adams"
               />
             </div>
-            
+
             <div>
               <label className="label font-medium">Genre</label>
               <select
@@ -80,7 +87,9 @@ const AddBook = () => {
                 required
                 className="select select-bordered w-full rounded-full focus:outline-primary/50"
               >
-                <option value="" disabled>Select genre</option>
+                <option value="" disabled>
+                  Select genre
+                </option>
                 <option value="Fiction">Fiction</option>
                 <option value="Non-Fiction">Non-Fiction</option>
                 <option value="Science Fiction">Science Fiction</option>
@@ -126,16 +135,26 @@ const AddBook = () => {
                 placeholder="https://example.com/book-cover.jpg"
               />
             </div>
-            
+
             <div className="flex space-x-4">
-                <div className="flex-1">
-                    <label className="label font-medium">Added By (Name)</label>
-                    <input type="text" value={user.displayName} disabled className="input input-bordered w-full rounded-full bg-gray-100" />
-                </div>
-                <div className="flex-1">
-                    <label className="label font-medium">Added By (Email)</label>
-                    <input type="text" value={user.email} disabled className="input input-bordered w-full rounded-full bg-gray-100" />
-                </div>
+              <div className="flex-1">
+                <label className="label font-medium">Added By (Name)</label>
+                <input
+                  type="text"
+                  value={user.displayName}
+                  disabled
+                  className="input input-bordered w-full rounded-full bg-gray-100"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="label font-medium">Added By (Email)</label>
+                <input
+                  type="text"
+                  value={user.email}
+                  disabled
+                  className="input input-bordered w-full rounded-full bg-gray-100"
+                />
+              </div>
             </div>
 
             <button

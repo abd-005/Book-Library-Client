@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:3000/"),
+        // loader: () => fetch("http://localhost:3000/"),
       },
       {
         path: "/all-books",
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: '/details-book/:id',
+        path: "/details-book/:id",
         element: (
           <PrivateRoute>
             <BookDetails />
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/details-book/${params._id}`),
+          fetch(`http://localhost:3000/details-book/${params.id}`),
       },
       {
         path: "/auth/login",

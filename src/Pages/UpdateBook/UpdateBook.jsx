@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 const UpdateBook = () => {
     
   const data = useLoaderData();
-  const book = data;
-  console.log(book)
+  const book = data.result;
+  console.log(book);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -18,7 +19,7 @@ const UpdateBook = () => {
     };
     // console.log(formData);
 
-    fetch(`http://localhost:3000/update-book/${book.id}`, {
+    fetch(`http://localhost:3000/update-book/${book._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +31,7 @@ const UpdateBook = () => {
         console.log("after update",data);
         if(data.modifiedCount){
                     toast.success("Successfully updated!");
+                    e.target.reset;
                 }
         
       })

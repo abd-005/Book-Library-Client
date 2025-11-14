@@ -33,12 +33,8 @@ const BookTable = ({ book }) => {
               <td>
                 <Link className="btn btn-ghost btn-outline btn-md tex-info rounded-2xl" to={`/details-book/${_id}`}>View Details</Link>
               </td>
-              {/* Created By */}
-              <td>
-                <span className="badge badge-outline badge-sm">
-                  {email}
-                </span>
-                </td>
+           
+             
             </tr>
     );
 };

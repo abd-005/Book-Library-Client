@@ -37,10 +37,12 @@ const Banner = () => {
                   className="w-full h-full object-cover brightness-80"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
-                <div className="absolute inset-0 md:grid flex flex-col gap-3 md:grid-rows-4 md:grid-cols-4 items-center justify-center md:gap-18 pt-18 w-9/12 mx-auto">
-                  <div className="col-span-2 md:mt-[55vh]">
+                <div className="absolute inset-0 md:grid flex flex-col gap-3 md:grid-rows-4 md:grid-cols-4
+                lg:grid-rows-4 lg:grid-cols-4
+                items-center justify-center md:gap-18 pt-18 w-9/12 mx-auto">
+                  <div className="col-span-2 md:mt-[40vh]">
                     <div className="typing-container">
-                      <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl">
+                      <p className="fade-load font-secondary text-base-100 text-5xl lg:text-6xl">
                         Take a tour to the Heaven!!
                       </p>
                     </div>
@@ -51,7 +53,7 @@ const Banner = () => {
                       All Book
                     </Link>
                   </div>
-                  <div className="flex flex-col items-end justify-end col-span-2 md:mt-[75vh]">
+                  <div className="flex flex-col items-end justify-end col-span-2 md:mt-[65vh]">
                     <div className="typing-container">
                       <p className="fade-load font-secondary text-base-100 text-5xl md:text-6xl text-end ">
                         Contribute to the Heaven!!

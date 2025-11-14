@@ -50,9 +50,12 @@ const LatestBooks = () => {
       <MyContainer>
         <div className="text-center">
           <h2 className="font-secondary text-4xl font-semibold text-base-100">Latest Books</h2>
+          <p className="font-secondary text-base-100">
+              Discover our most latest books of the week
+            </p>
         </div>
 
-      <Marquee className="flex " pauseOnHover={true} speed={50}>
+      <Marquee className="grid" pauseOnHover={true} speed={50}>
         {books?.map((book) => (
         <LatestCard key={book._id} book={book} />
       ))}

@@ -13,7 +13,7 @@ const Footer = () => {
 
 
   return (
-    <footer className="bg-linear-to-r/oklch from-[#00d084] to-[#9b51e0] py-8 px-4 ">
+    <footer className="bg-base-content py-8 px-4 ">
         <MyContainer>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>

@@ -76,10 +76,11 @@ const NavBar = () => {
             </div>
             <Link
               to={"/"}
-              className="flex items-center gap-1 text-2xl pl-2 md:text-4xl text-base-100 font-secondary"
+              className=""
             >
-              <span className="font-semibold text-base-100">The Book</span>
-              <span className="gradient-text font-semibold"> Heaven</span>
+              <div className="text-2xl pl-2 md:text-4xl text-base-100">
+                <h2 className="font-primary">The Book Heaven</h2>
+              </div>
             </Link>
           </div>
           <div className="navbar-center hidden md:flex">
